@@ -41,14 +41,15 @@ class Solution2 { // more efficient
         }
         int[] charCounts = new int[26];
         for (int i = 0; i < s.length(); i++) {
-            charCounts[s.charAt(i)-'a']++;
-            charCounts[t.charAt(i)-'a']--;
+            charCounts[s.charAt(i) - 'a']++;
+            charCounts[t.charAt(i) - 'a']--;
         }
-        for(int count : charCounts){ // iterates the array
-            if(count != 0){
+        for (int i = 0; i < charCounts.length; i++) {
+            if (charCounts[i] != 0) {
                 return false;
             }
         }
+
         return true;
     }
 }
