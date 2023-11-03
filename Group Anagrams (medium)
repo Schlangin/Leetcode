@@ -33,17 +33,17 @@ class Solution { // this is the inefficient method (mohibs method)
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] inputArr) {
-        Map<String, List<String>> groupedAnagrams = new HashMap<>();// key(sorted string) value (list of original Strings)
+        Map<String, List<String>> groupedAnagrams = new HashMap<>();      // key(sorted string) value (list of original Strings)
 
         for(String str: inputArr){ // iterate over the inputArr
-            char[] charArr = str.toCharArray(); // turns iteration of inputArr (str in this case) into an array of characters ie "hello" into 'h''e'l'l''o'
-            Arrays.sort(charArr); // Sort character array into ASCII order (alphabetical order)
-            String sortedStr = String.valueOf(charArr); // Converts the Character Array into a String
-            if(!groupedAnagrams.containsKey(sortedStr)){ // check if sorted String already exists in the map or not if not then add an empty array to the map
+            char[] charArr = str.toCharArray();                          // turns iteration of inputArr (str in this case) into an array of characters ie "hello" into 'h''e'l'l''o'
+            Arrays.sort(charArr);                                        // Sort character array into ASCII order (alphabetical order)
+            String sortedStr = String.valueOf(charArr);                  // Converts the Character Array into a String
+            if(!groupedAnagrams.containsKey(sortedStr)){                 // check if sorted String already exists in the map or not if not then add an empty array to the map
                 groupedAnagrams.put(sortedStr,new ArrayList<>());
             }
-            groupedAnagrams.get(sortedStr).add(str); // add the string associated to the sorted string (key) to the map
+            groupedAnagrams.get(sortedStr).add(str);                     // add the string associated to the sorted string (key) to the map
         }
-        return new ArrayList<>(groupedAnagrams.values()); //  converts the grouped anagrams stored in the map into a list of lists
+        return new ArrayList<>(groupedAnagrams.values());                //  converts the grouped anagrams stored in the map into a list of lists
     }
 }
