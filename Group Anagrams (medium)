@@ -1,3 +1,36 @@
+class Solution { // this is the inefficient method (mohibs method)
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> result = new ArrayList<>();
+        List<String> anagrams = new ArrayList<>();
+        
+        for (String str : strs) {
+            boolean found = false;
+            char[] charArray = str.toCharArray();
+            Arrays.sort(charArray);
+            String sortedStr = new String(charArray);
+
+            // Search for the sorted string in the list of anagrams
+            for (int i = 0; i < anagrams.size(); i++) {
+                if (anagrams.get(i).equals(sortedStr)) {
+                    result.get(i).add(str);
+                    found = true;
+                    break;
+                }
+            }
+
+            // If not found, create a new group
+            if (!found) {
+                List<String> newGroup = new ArrayList<>();
+                newGroup.add(str);
+                result.add(newGroup);
+                anagrams.add(sortedStr);
+            }
+        }
+        
+        return result;
+    }
+}
+
 class Solution {
     public List<List<String>> groupAnagrams(String[] inputArr) {
         Map<String, List<String>> groupedAnagrams = new HashMap<>();// key(sorted string) value (list of original Strings)
