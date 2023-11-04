@@ -1,0 +1,18 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();  // create Map to hold key(int) value(duplicates of ints)
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i],map.getOrDefault(nums[i],0) + 1); // adds unique numbers as key and duplicates as value + 1 in the map
+        }
+        PriorityQueue<Map.Entry<Integer,Integer>> pq = // creates priority queue that holds entries from a map with the key and value being integers
+                new PriorityQueue<>((a,b) -> b.getValue() - a.getValue()); //  initializes the PriorityQueue with a custom comparator
+        for(Map.Entry entry : map.entrySet()){
+            pq.add(entry);
+        }
+        int[] output = new int[k];
+        for (int i = 0; i < k; i++) {
+            output[i] = pq.poll().getKey();
+        }
+        return output;
+    }
+}
