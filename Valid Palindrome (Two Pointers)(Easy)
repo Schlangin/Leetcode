@@ -13,3 +13,25 @@ class Solution {
         return filteredString.equals(reversedString);
     }
 }
+
+class Solution {                                                           // How to solve using Two Pointer
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for(char iteration : s.toCharArray()){
+            if(Character.isLetterOrDigit(iteration)){
+                sb.append(Character.toLowerCase(iteration));
+            }
+        }
+        int left = 0;
+        int right = sb.length() - 1;
+        while(left < right){
+            if(sb.charAt(left) != sb.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
