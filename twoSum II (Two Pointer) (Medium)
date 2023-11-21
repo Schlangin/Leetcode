@@ -1,0 +1,18 @@
+class Solution {                                          // BRUTE FORCE METHOD OFC DOESNT PASS ON LEETCODE
+    public int[] twoSum(int[] numbers, int target) {
+        int[] solution = new int[2];
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers.length; j++) {
+                if(j == 0 && i == 0){
+                    continue;
+                }
+                if(numbers[i] + numbers[j] == target){
+                    solution[0] = j + 1;
+                    solution[1] = i + 1;
+                    break;
+                }
+            }
+        }
+        return solution;
+    }
+}
