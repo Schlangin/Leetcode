@@ -19,7 +19,7 @@ class Solution {
                     }else right--;                  // if the sum is greater then sum move right pointer - 1
                 }
         }
-        return new ArrayList<>(result);
+        return new ArrayList<>(result);             // creates new array of lists 
     }
 }
 
