@@ -1,3 +1,29 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        if(nums == null || nums.length < 3) return new ArrayList<>(); // make sure input isnt empty or invalid
+        Arrays.sort(nums);
+        Set <List<Integer>> result = new HashSet<>(); // a set of lists that contain integers
+        for (int i = 0; i < nums.length - 2; i++) {
+
+                int left = i + 1;                     // left is i + 1 because [i] is the unique element for this iteration
+                int right = nums.length - 1;
+                while(left < right){                                // once both pointers meet finish the loop and go to the next unique element
+                    int sum = nums[i] + nums[left] + nums[right];   // sum of the iteration
+
+                    if(sum == 0){                                   // if solution is found
+                        result.add(Arrays.asList(nums[i],nums[left],nums[right]));  // add
+                        left++;
+                        right--;
+                    } else if (sum < 0) {           // if the sum is less then the target left pointer moves +1
+                        left++;
+                    }else right--;                  // if the sum is greater then sum move right pointer - 1
+                }
+        }
+        return new ArrayList<>(result);
+    }
+}
+
+
 class Solution {                                              // NOT TWO POINTER SOLUTION BUT GOOD SOLUTION STILL
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
@@ -24,3 +50,6 @@ class Solution {                                              // NOT TWO POINTER
         return outArray;     
     }
 }
+
+
+
