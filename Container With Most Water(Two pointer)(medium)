@@ -1,0 +1,51 @@
+class Solution {                                                                          // BEST SOLUTION
+    public int maxArea(int[] height) {
+        if(height.length == 0 || height == null){   // base case
+            return 0;
+        }
+        int left = 0;
+        int right = height.length - 1;
+        int greatestArea = 0;
+        while(left < right){
+            int area = (right - left) * Math.min(height[left], height[right]);
+
+            if(area >= greatestArea){ // update area if it becomes biggest
+                greatestArea = area;
+            }
+            if(height[left] > height[right]){
+                right--;
+            }else {
+                left++;
+            }
+        }
+        return greatestArea;
+    }
+}
+
+class Solution {                                                                  // SOLUTION I THOUGHT OF (KIND OF MESSY)
+    public int maxArea(int[] height) {
+        if(height.length == 0 || height == null){   // base case
+            return 0;
+        }
+        int left = 0;
+        int right = height.length - 1;
+        int greatestArea = 0;
+        while(left < right){
+            int area = (right - left);
+            if(height[left] > height[right]){  // calculate area
+                area = area * height[right];
+            }else {
+                area = area * height[left];
+            }
+            if(area >= greatestArea){ // update area if it becomes biggest
+                greatestArea = area;
+            }
+            if(height[left] > height[right]){
+                right--;
+            }else {
+                left++;
+            }
+        }
+        return greatestArea;
+    }
+}
