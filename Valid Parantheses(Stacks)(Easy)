@@ -1,0 +1,78 @@
+class Solution {                                                                // MY SOLUTION
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack();
+        for(int i = 0; i < s.length(); i++){
+            if (s.charAt(i) == '(' || s.charAt(i) == '{' || s.charAt(i) == '[') { // only pushing opening brackets
+                stack.push(s.charAt(i));
+            }else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                if(stack.peek().equals('[') && s.charAt(i) == ']'){
+                    stack.pop();
+                    continue;
+                }
+                if(stack.peek().equals('(') && s.charAt(i) == ')'){
+                    stack.pop();
+                    continue;
+                }
+                if(stack.peek().equals('{') && s.charAt(i) == '}'){
+                    stack.pop();
+                    continue;
+                }else return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+
+class Solution {                                                          // CLEANER SOLUTION
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack();
+        for(int i = 0; i < s.length(); i++){
+            if (s.charAt(i) == '(' || s.charAt(i) == '{' || s.charAt(i) == '[') { // only pushing opening brackets
+                stack.push(s.charAt(i));
+            }else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                char c = s.charAt(i);
+                char top = stack.peek();
+                if((top == '[' && c == ']') || (top == '(' && c == ')') || (top == '{' && c == '}')){
+                    stack.pop();
+                }else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+
+import java.util.Stack;
+
+public class Solution {                                  // SWITCH STATEMENT SOLUTION (CHAT GPT)
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case '(':
+                case '{':
+                case '[':
+                    stack.push(c);
+                    break;
+                case ')':
+                    if (stack.isEmpty() || stack.pop() != '(') return false;
+                    break;
+                case '}':
+                    if (stack.isEmpty() || stack.pop() != '{') return false;
+                    break;
+                case ']':
+                    if (stack.isEmpty() || stack.pop() != '[') return false;
+                    break;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
