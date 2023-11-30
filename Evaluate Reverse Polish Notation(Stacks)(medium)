@@ -1,0 +1,32 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack();
+        for (int i = 0; i < tokens.length; i++) {
+            String curVal = tokens[i];
+            if(curVal.equals("+")){
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                stack.push(num1 + num2);
+
+            }else if (curVal.equals("-")) {
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                stack.push(num1 - num2);
+
+            }else if (curVal.equals("*")) {
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                stack.push(num1 * num2);
+
+            }else if (curVal.equals("/")){
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                stack.push(num1 / num2);
+            }else{
+                int intVal = Integer.valueOf(curVal);
+                stack.push(intVal);
+            }
+        }
+        return stack.pop();
+    }
+}
