@@ -1,0 +1,35 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();        // array list is created to return with solution
+        if (n <= 0) {                                   // base case
+            return result;
+        }
+
+        Stack<String> stack = new Stack<>();            // Stack
+        stack.push("(");                           // 1st item put in w/o this loop wont work
+        Stack<Integer> countStack = new Stack<>();      // Counting Stack counting open parentheses
+        countStack.push(1);                        // Counts 1 item as "(" was pushed earlier
+
+        while (!stack.isEmpty()) {                      // Loop condition
+            String current = stack.pop();               // pop and set top element to 'current'
+            int count = countStack.pop();               // update count and retrieve the count of open parentheses in the current partial combination.
+            System.out.println(current);
+            if (current.length() == 2 * n) {            //  ensures that only complete and valid combinations of parentheses are added to the result list
+                    result.add(current);                // filtering out partial combinations that do not satisfy the criteria of having exactly n pairs of open
+                                                        // and close parentheses. (has 'n' opening parenthesis and 'n' closing parenthesis
+
+            } else {
+                if (count < n) {                        // checks if 'count' (amount of open parenthesis) is less than 'n' maximum amount of open paranthesis
+                    stack.push(current + "(");
+                    countStack.push(count + 1);
+                }                                        // this section of code checking a condition to potentially add a closing parenthesis
+                if (count * 2 > current.length()) {      // checks if 'count'(open par) * 2 (amount of all paranth) is greater then current.length
+                                                              // (current combination length)
+                    stack.push(current + ")");
+                    countStack.push(count);               // subtracts one for each closing parentheses added
+                }
+            }
+        }
+        return result;
+    }
+}
