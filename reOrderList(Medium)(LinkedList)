@@ -1,0 +1,46 @@
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null){
+            return;
+        }
+        ListNode dummyNode = head;
+        ListNode finding_middle = head;
+
+        int counter = 0;
+        int solution = 0;
+
+        while(dummyNode.next != null){
+            dummyNode=dummyNode.next;
+            counter++;
+            if((counter / 2) > solution){
+                finding_middle = finding_middle.next;
+                solution = counter / 2;
+            }
+        }
+
+        ListNode prev = null;
+        ListNode next = null;
+        ListNode current = finding_middle.next;                    // 'list2' becomes head of second list split
+        finding_middle.next = null;
+
+        while(current != null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        ListNode dummyHead = head;
+        ListNode next2 = null;
+        current = prev;
+
+        while(current != null){
+            next = dummyHead.next;
+            next2 = current.next;
+            current.next = dummyHead.next;
+            dummyHead.next = current;
+            dummyHead = next;
+            current = next2;
+        }
+    }
+}
