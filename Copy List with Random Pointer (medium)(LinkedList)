@@ -36,3 +36,33 @@ class Solution {
         return newHead;
     }
 }
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // Creating a mapping from original to copied nodes
+        Map<Node, Node> map = new HashMap<>();
+
+        // First pass: copy nodes
+        Node originalNode = head;
+        while (originalNode != null) {
+            map.put(originalNode, new Node(originalNode.val));
+            originalNode = originalNode.next;
+        }
+
+        // Second pass: assign next and random pointers
+        originalNode = head;
+        while (originalNode != null) {
+            Node copiedNode = map.get(originalNode);
+            copiedNode.next = map.get(originalNode.next);
+            copiedNode.random = map.get(originalNode.random);
+            originalNode = originalNode.next;
+        }
+
+        return map.get(head);
+    }
+}
+
