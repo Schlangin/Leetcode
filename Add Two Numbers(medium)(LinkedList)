@@ -23,3 +23,47 @@ class Solution {
         return dummyHead.next;
     }
 }
+
+
+class Solution {                                                            // My terrible attempt which I abandoned due to overflow issues with parseInt
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode temp1 = l1;
+        ListNode temp2 = l2;
+        String first = "";
+        String second = "";
+        while(temp1 != null && temp2 != null){          // Convert LinkedLists into Strings
+            if(temp1 != null){
+                String str = Integer.toString(temp1.val);
+                first = first + str;
+                temp1 = temp1.next;
+            }
+            if(temp2 != null){
+                String str = Integer.toString(temp2.val);
+                second = second + str;
+                temp2 = temp2.next;
+            }
+        }
+        StringBuilder str1 = new StringBuilder(first);  // reverse Strings
+        StringBuilder str2 = new StringBuilder(second);
+        str1.reverse();
+        str2.reverse();
+
+        int one = Integer.parseInt(str1.toString());    // convert to integers
+        int two = Integer.parseInt(str2.toString());
+
+        int result = one + two;                         // add them
+
+        String answer = Integer.toString(result);       // convert back to a string
+
+        StringBuilder almost_actual_answer = new StringBuilder(answer); // reverse the string again
+        String answerString = almost_actual_answer.reverse().toString();
+
+        ListNode answerList = new ListNode(0);
+        ListNode head = answerList.next;
+        for (int i = 0; i < answerString.length(); i++) {               // Convert and add solution to new list
+            int temp = answerString.charAt(i) - '0';
+            answerList.next = new ListNode(temp);
+        }
+        return head;
+    }
+}
