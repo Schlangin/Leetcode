@@ -9,3 +9,26 @@ class Solution {                                  // Hash set solution
         return 0;
     }
 }
+
+class Solution {                                   // Linked List Solution
+    public int findDuplicate(int[] nums) {
+        // Initialize the slow and fast pointers
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+
+        // Detect the cycle using Floyd's Tortoise and Hare algorithm
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+
+        // Find the start of the cycle (duplicate number)
+        slow = 0;
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+    }
+}
