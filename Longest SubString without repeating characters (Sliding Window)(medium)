@@ -1,3 +1,29 @@
+class Solution {                                                    // original fail. Consider the test case 'dvdf' my algo would stop at d clear the hashset set counter to 1 and continue at d. but it skips the potential for 'vdf' which is the longest substring.
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() == 0 || s.length() == 1){
+            if(s.length() == 1){
+                return 1;
+            }else return 0;
+        }
+
+        HashSet<Character> hashSet = new HashSet();
+        hashSet.add(s.charAt(0));
+        int maxNum = 0;
+        int counter = 1;
+        for (int i = 1; i < s.length(); i++) {
+            if(hashSet.add(s.charAt(i)) == false){      // if repeat character is found
+                maxNum = Integer.max(maxNum,counter);
+                counter = 1;
+                hashSet.clear();
+                hashSet.add(s.charAt(i));
+                continue;
+            }
+            counter++;
+        }
+        return maxNum;
+    }
+}
+
 class Solution {                                                // Chatgpt solution
     public int lengthOfLongestSubstring(String s) {
         if(s.length() <= 1){
