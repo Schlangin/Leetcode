@@ -1,4 +1,4 @@
-class Solution {
+class Solution {                                                // Chatgpt solution
     public int lengthOfLongestSubstring(String s) {
         if(s.length() <= 1){
             return s.length();
@@ -13,8 +13,33 @@ class Solution {
                 start++;
             }
             hashSet.add(s.charAt(i));
-            maxNum = Math.max(maxNum, i - start + 1);
+            maxNum = Math.max(maxNum, i - start + 1);       // ending index - starting index + 1 = size of substring
         }
+        return maxNum;
+    }
+}
+
+class Solution {                                                            // my solution revised and fixed
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() <= 1){
+            return s.length();
+        }
+
+        HashSet<Character> hashSet = new HashSet();
+        int maxNum = 0;
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if(!hashSet.add(s.charAt(i))){
+                maxNum = Math.max(maxNum, i-start);
+                while(s.charAt(start) != s.charAt(i)){
+                    hashSet.remove(s.charAt(start));
+                    start++;
+                }
+                start++;
+            }
+        }
+        maxNum = Math.max(maxNum,s.length() - start);   // checks last substring
+
         return maxNum;
     }
 }
