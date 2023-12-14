@@ -1,0 +1,45 @@
+class Solution {                                        // MOST EFFECIENT SOLUTION
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            // Find the minimum price (buying price) so far
+            if (price < minPrice) {
+                minPrice = price;
+            }
+            // Calculate the profit if selling at the current price, update maxProfit if this is greater
+            else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+}
+                                                      // less effecient solution
+public class StockProfit {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+
+        int minPrice = prices[0];
+        int maxProfit = 0;
+
+        for (int i = 1; i < prices.length; i++) {
+            // Find the minimum price so far
+            minPrice = Math.min(minPrice, prices[i]);
+
+            // Calculate the profit if selling at the current price, update maxProfit if this is greater
+            maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+        }
+
+        return maxProfit;
+    }
+
+    public static void main(String[] args) {
+        StockProfit solution = new StockProfit();
+        int[] prices = {7, 1, 5, 3, 6, 4};
+        System.out.println("Maximum profit: " + solution.maxProfit(prices));
+    }
+}
