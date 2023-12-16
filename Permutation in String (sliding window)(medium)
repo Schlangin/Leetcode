@@ -1,0 +1,73 @@
+class Solution {                                          // ARRAY BASED SOLUTION MORE EFFICIENT
+
+
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length() > s2.length()){
+            return false;
+        }
+
+        if(s2.contains(s1)) return true;
+
+        HashMap<Character, Integer> s1hashMap = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char key = s1.charAt(i);
+            int val = s1hashMap.getOrDefault(key, 0 );
+            s1hashMap.put(key, val + 1);
+        }
+
+        HashMap<Character, Integer> s2hashMap = new HashMap();
+        int windowStart = 0;        // i = windowEnd
+        for (int i = 0; i < s2.length(); i++) {
+            s2hashMap.put(s2.charAt(i), s2hashMap.getOrDefault(s2.charAt(i), 0) + 1);
+            if(i >= s1.length()-1){               // slides start of window as i(end) slides up
+                if(s1hashMap.equals(s2hashMap)) {
+                    return true; // means permutation exists
+                }
+                if(s2hashMap.get(s2.charAt(windowStart)) == 1) {
+                    s2hashMap.remove(s2.charAt(windowStart));
+                }else {
+                    s2hashMap.put(s2.charAt(windowStart), s2hashMap.get(s2.charAt(windowStart))-1);
+                }
+                windowStart++;
+            }
+        }
+        return false; // remove
+    }
+}
+
+class Solution {                                                            // HASHMAP BASED SOLUTION LESS EFFICIENT
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length() > s2.length()){
+            return false;
+        }
+
+        if(s2.contains(s1)) return true;
+
+        HashMap<Character, Integer> s1hashMap = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char key = s1.charAt(i);
+            int val = s1hashMap.getOrDefault(key, 0 );
+            s1hashMap.put(key, val + 1);
+        }
+
+        HashMap<Character, Integer> s2hashMap = new HashMap();
+        int windowStart = 0;        // i = windowEnd
+        for (int i = 0; i < s2.length(); i++) {
+            s2hashMap.put(s2.charAt(i), s2hashMap.getOrDefault(s2.charAt(i), 0) + 1);
+            if(i >= s1.length()-1){               // slides start of window as i(end) slides up
+                if(s1hashMap.equals(s2hashMap)) {
+                    return true; // means permutation exists
+                }
+                char start = s2.charAt(windowStart);
+                int startVal = s2hashMap.get(start);
+                if(startVal == 1) {
+                    s2hashMap.remove(start);
+                }else {
+                    s2hashMap.put(start, startVal-1);
+                }
+                windowStart++;
+            }
+        }
+        return false; // remove
+    }
+}
