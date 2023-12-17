@@ -1,0 +1,46 @@
+class Solution {                                      // my actual solution
+    public int search(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target) {
+                return mid;  // Return the index
+            }
+            if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return -1;  // Target not found
+    }
+}
+
+
+
+class Solution {                                      // my failed attempt
+    public int search(int[] nums, int target) {
+
+        int start = 0;
+        int mid = 0;
+        int end = nums.length - 1;
+        boolean found = false;
+
+        while(start <= end){
+            double result = Math.ceil((double) end / 2);
+            mid = (int) result;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if(nums[mid] < target){
+                start = mid + 1;
+            }
+            if(nums[mid] > target){
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
