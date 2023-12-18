@@ -1,0 +1,30 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int maxNum = 0;
+        for (int i = 0; i < piles.length; i++) {        // finding end pointer of binary search
+            if(maxNum < piles[i]){
+                maxNum = piles[i];
+            }
+        }
+        int start = 1;
+        int end = maxNum;
+        int solution = 0;
+        while(start <= end){
+            int mid = start + (end - start) / 2;
+            long counter = 0;
+
+            for (int i = 0; i < piles.length; i++) {
+
+                counter += (piles[i] + mid - 1) / mid;      // = h
+            }
+            if(counter <= h){
+                end = mid - 1;
+                solution = mid;
+            }
+            else if (counter > h){
+                start = mid + 1;
+            }
+       }
+        return solution;
+    }
+}
