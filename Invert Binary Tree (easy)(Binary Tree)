@@ -1,0 +1,53 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+
+class Solution {                                        // RECURSIVE SOLUTION BEST
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        // Swap the left and right subtrees
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        // Recursively invert the subtrees
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+    }
+}
+
+
+public class Solution {                              // QUEUE SOLUTION GOOD AS WELL
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+
+            // Swap the left and right children
+            TreeNode temp = current.left;
+            current.left = current.right;
+            current.right = temp;
+
+            // Enqueue children
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+            }
+        }
+
+        return root;
+    }
+}
